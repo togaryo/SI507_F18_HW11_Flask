@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 import requests
 import json
-from apikey import params
+from secrets import api_key
+
+params={'api-key': api_key}
 
 
 app = Flask(__name__) # app is named from the name of file
@@ -16,6 +18,7 @@ def index():
 @app.route('/user/<nm>' ) #decorating function
 def user_name(nm):
     baseurl ='https://api.nytimes.com/svc/topstories/v2/'
+    global params
     url = baseurl + 'technology' +'.json'
     data =requests.get(url, params).json()
     count = 0
